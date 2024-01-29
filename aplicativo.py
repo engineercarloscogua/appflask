@@ -7,4 +7,4 @@ app = Flask (__name__) #create app / give back a parameter /indicando que aqui s
 
 #funtion for show message in page
 def hola():
-    return "<h1> Hello world 2.5 <h1>"
+    return "<h1> Hello world prueba de git ignore <h1>"
