@@ -1,0 +1,1 @@
+#modelo para las aplicaciones
