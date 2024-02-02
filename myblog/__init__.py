@@ -1,4 +1,4 @@
-from flask import Flask 
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy 
 
 app = Flask(__name__)
@@ -8,4 +8,9 @@ app = Flask(__name__)
 app.config.from_object('config.DevelopmentConfig')
 # variable que refleja la BD  mysql de la app
 db = SQLAlchemy(app)
-# ejecutar todas las consultas de Sql
+# Registrando el Blueprint / Importar Vistas
+#importando el prue print o vista llamado auth
+from myblog.Views.auth import auth  
+#registrando la vista
+app.register_blueprint(auth) 
+
