@@ -29,6 +29,12 @@
             <!-- TODO LO QUE TENGA CORCHETES Y %% ES DINAMICO-->
            {%block header%} {% endblock %}
         </header>
+        <!--Flasheando errores reccoriendo todos los mensajes -->
+        {% for message in get_flashed_messages() %}
+        <!--Mostrando el mensaje-->
+        <div>{{message}}</div>
+        {%endfor%}
+        <!--contenido-->
         {%block content%} {% endblock %}
     </section>
 </body>

@@ -1,0 +1,17 @@
+<!--Todo lo que tenga Extends es heredado-->
+{%extends 'base.html'%} 
+
+{%block header%} 
+    <h2>{%block title%} REGISTRAR USUARIO {% endblock %}</h2>
+{% endblock %}
+
+{%block content%} 
+<!--EL METODO POST NO PERMITE QUE LA URL SE VEAN LOS DATOS QUE SE ESTAN ENVIANDO-->
+    <form method="POST">
+        <label for="username">Nombre de Usuario</label>
+        <input type="text" name="username" id = "username" required>
+        <label for="password">Contraseña</label>
+        <input type="password" name="password" id = "password" required>
+        <input type="submit", value="Registrar Usuario">
+    </form>
+{% endblock %}

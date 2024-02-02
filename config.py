@@ -16,7 +16,7 @@ class ProductionConfig(Config):
     DEBUG = False
 
 class DevelopmentConfig(Config):
-    SECRET_KEY = 'Villadavid20'
+    SECRET_KEY = 'dev'
     DEBUG = True
     TESTING =True
     
