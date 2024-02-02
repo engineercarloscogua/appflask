@@ -1,0 +1,35 @@
+<!-- Html base para Heredar-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <!-- TODO LO QUE TENGA CORCHETES Y %% ES DINAMICO-->
+        {%block title%} {% endblock %} mi blog
+    </title>
+</head>
+<body>
+    <header>
+        <div>
+            <a href="">
+                <h1>Mi blog</h1>
+            </a>
+        </div>
+        <nav>
+            <a href="">Registrar usuario</a>
+            <a href="">Iniciar Sesión</a>
+        </nav>
+        
+
+    </header>
+    <!--CONTENIDO-->
+    <section>
+        <header>
+            <!-- TODO LO QUE TENGA CORCHETES Y %% ES DINAMICO-->
+           {%block header%} {% endblock %}
+        </header>
+        {%block content%} {% endblock %}
+    </section>
+</body>
+</html>

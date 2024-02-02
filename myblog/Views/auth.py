@@ -7,6 +7,6 @@ from flask import(
 auth = Blueprint('auth', __name__, url_prefix= '/auth') #Url prefijo 
 
 # Registrar Usuario
-@auth.route('/register') # mothods = ('GET', 'POST') DECORADOR DIRECCIONA LA RUTA Y PERMITE ENVIO TEXTO POR GET O HTML CON POST
+@auth.route('/register',mothods = ('GET', 'POST') ) # mothods = ('GET', 'POST') DECORADOR DIRECCIONA LA RUTA Y PERMITE ENVIO TEXTO POR GET O HTML CON POST
 def register():
     return "Registrar Usuario"
