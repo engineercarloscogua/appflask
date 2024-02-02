@@ -19,6 +19,8 @@ class Post(db.Model): #hereda del modelo db de __init.py__
     # contructor para poder reutilizar la clase, crear aplicaciones 
     # el contructor recibe una nombre de usuario y contraseña
     #en la representacion  __repr__ le pasamos la clase y el titulo
+    
+    #https://www.youtube.com/watch?v=JTAY5_LO0Ug  45:34
     def __init__(self,author, title, body) -> None: 
         self.author = author
         self.title = title
