@@ -86,3 +86,23 @@ def load_logged_in_user():
     else:
         #carga de usuario logueado y maneja error 404 si no lo encunetra
         g.user = User.query.get_or_404(user_id)
+
+#-------------FUNCIÓN PARA CERRAR SESIÓN LOGOUT------------------
+@auth.route('/logout')
+def logout():
+    #cierrra la sesión
+    session.clear()
+    #redirecciona a index una vez cerrada la sesión
+    return redirect(url_for('index'))
+
+#------------VALIDACIÓN DE LOGEO PARA ACCEDER A VISTAS QUE REQUIEREN PERMISOS --------------
+def login_required(view): #decora las vistas que necesitan logueo
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        #verificación de logeo
+        if g.user is None:
+            #redireccionar a login si no esta logueado
+            return redirect(url_for('auth.login'))
+        return view(**kwargs) # si el usuario esta lgueado delvuelve todos los argumentos
+    # devuelve la función decorada
+    return wrapped_view
