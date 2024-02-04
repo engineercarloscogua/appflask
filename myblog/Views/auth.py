@@ -37,12 +37,12 @@ def register():
             db.session.add(user) #se envia el objeto el cual tiene usuario y clave encriptada
             #Aplicando el cambio
             db.session.commit()
+            return redirect(url_for('auth.login')) #una vez registrado redireccionar a login para ingresar credenciales 
             #si existe el mismo usuario
         else:
             error = f'El usuario {username} ya existe' #mensaje formateado
             flash(error) #captura el error y lo envia al HTML register
     return render_template('auth/register.html')
-
 # -----------------------------VISTA PARA EL LOGIN  INICIO DE SESION----------------------------------------------
 # Registrar Usuario
 @auth.route('/login', methods=('GET','POST')) # mothods = ('GET', 'POST') DECORADOR DIRECCIONA LA RUTA Y PERMITE ENVIO TEXTO POR GET O HTML CON POST
@@ -72,3 +72,17 @@ def login():
         flash(error) #captura el error y lo envia 
         
     return render_template('auth/login.html')
+#------------------------FUNCIÓN PARA LA VERIFICACIÓN DEL LOGUEO DE USUSARIO------------------
+#decorador de bluepirnt que permite que la función opere
+@auth.before_app_request
+
+def load_logged_in_user():
+    #--- capturar el ud de un usuario si es logueado
+    user_id = session.get('user_id')
+    #--- si no esta logueado
+    if user_id is None:
+        #-- libreria g
+        g.user = None
+    else:
+        #carga de usuario logueado y maneja error 404 si no lo encunetra
+        g.user = User.query.get_or_404(user_id)
