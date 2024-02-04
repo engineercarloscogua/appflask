@@ -67,7 +67,7 @@ def login():
             #inicia la sesión / capura el el del usuario en la variable session
             session['user_id'] = user.id
             #Redirección a la pagina principal
-            #return redirect(url_for('blog.index'))
+            return redirect(url_for('blog.index'))
         
         flash(error) #captura el error y lo envia 
         
