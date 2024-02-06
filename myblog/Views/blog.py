@@ -35,8 +35,8 @@ def index():
     posts = Post.query.all()
     #enviando la consulta a la DB
     db.session.commit()
-    #renderizando el templagte
-    return render_template('blog/index.html', posts = posts) #retornando los datos en un diccionario (clave:contenido)
+    #renderizando el templagte   -estas variables son las que van a ser iteradas en el for en los templates del index
+    return render_template('blog/index.html', posts = posts, get_user=get_user) #retornando los datos en un diccionario (clave:contenido)
 
 #-------REGISTRAR O PUBLICAR -----------una copia base de user register-----------------------
 

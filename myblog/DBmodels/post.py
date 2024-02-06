@@ -11,7 +11,7 @@ class Post(db.Model): #hereda del modelo db de __init.py__
     #columnas de la tabla o atributos de la clases
     id = db.Column(db.Integer, primary_key =True)
     #relación de 1 a muchos (1 autor puede tener muchas publicaciones)
-    author = db.Column(db.Integer, db.ForeignKey('users.id'),nullable= False) #llamado de la ky de la tabla users
+    author = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False) #llamado de la ky de la tabla users
     title = db.Column(db.String(100))
     body = db.Column(db.Text)
     #fecha de ceración del posteo
