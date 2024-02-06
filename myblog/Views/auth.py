@@ -94,7 +94,7 @@ def logout():
     #cierrra la sesión
     session.clear()
     #redirecciona a index una vez cerrada la sesión
-    return redirect(url_for('index'))
+    return redirect(url_for('blog.index'))
 
 #------------VALIDACIÓN DE LOGEO PARA ACCEDER A VISTAS QUE REQUIEREN PERMISOS --------------
 def login_required(view): #decora las vistas que necesitan logueo

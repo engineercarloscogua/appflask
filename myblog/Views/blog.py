@@ -25,7 +25,7 @@ blog = Blueprint('blog', __name__)
 def get_user(id):
     #consulta en la base de datos el id o retorna 404 si no existe
     user = User.query.get_or_404(id)
-    return User #retoan el usuario obtenido
+    return user #retoan el usuario obtenido
 
 #---------LISTADO DE TODAS LAS PUBLICACIONES -------------------
 #decorando que todo empiece desde el inicio
@@ -40,7 +40,7 @@ def index():
 
 #-------REGISTRAR O PUBLICAR -----------una copia base de user register-----------------------
 
-@blog.route('/blog/create', methods=('GET','POST')) # mothods = ('GET', 'POST') DECORADOR DIRECCIONA LA RUTA Y PERMITE ENVIO TEXTO POR GET O HTML CON POST
+@blog.route('/blog/create_blog', methods=('GET','POST')) # mothods = ('GET', 'POST') DECORADOR DIRECCIONA LA RUTA Y PERMITE ENVIO TEXTO POR GET O HTML CON POST
 @login_required #requerir que el usuario este logueado
 def register():
     #verificando el envio de información con el metodo post usado en el Html register
@@ -67,4 +67,4 @@ def register():
             return redirect(url_for('blog.index'))
             
         flash(error) #devuelve un error en caso de exitir
-    return render_template('blog/create.html')
+    return render_template('blog/create_blog.html')
