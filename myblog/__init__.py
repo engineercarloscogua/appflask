@@ -10,12 +10,16 @@ app.config.from_object('config.DevelopmentConfig')
 # variable que refleja la BD  mysql de la app
 db = SQLAlchemy(app)
 
-# Registrando el Blueprint / Importar Vistas
+# ------------------------------Registrando el Blueprint / Importar Vistas-----TODAS LAS VISTAS DEBEN REGISTRARSE AQUI-------------------------------
 #importando el prue print o vista llamado auth
 from myblog.Views.auth import auth  
 #registrando la vista
 app.register_blueprint(auth) 
-#generando las consultas SQL
-#db.create_all() esto no va aqui se puso en main
+#importando el prue print o vista llamado blog
+from myblog.Views.blog import blog
+app.register_blueprint(blog)
+
+
+#db.create_all() esto no va aqui se puso en main.py
 
 

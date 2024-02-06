@@ -1,0 +1,18 @@
+<!--Todo lo que tenga Extends es heredado-->
+{%extends 'base.html'%} 
+
+{%block header%} 
+    <h2>{%block title%} Crear publicación {% endblock %}</h2>
+{% endblock %}
+
+{%block content%} 
+<!--EL METODO POST NO PERMITE QUE LA URL SE VEAN LOS DATOS QUE SE ESTAN ENVIANDO-->
+    <form method="POST">
+        <label for="title">Titulo</label>
+        <input type="text" name="title" id = "title" required>
+        <label for="body">Contenido</label>
+        <textarea name="body" id="body" cols="30" rows="10"></textarea>
+        <input type="submit", value="Guardar">
+    </form>
+{% endblock %}
+<!--Despues de crear una plantilla hay que registrar el blueprint en __init__.py principal-->

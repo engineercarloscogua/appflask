@@ -2,6 +2,7 @@
 from flask import(
     render_template, Blueprint, flash, g, redirect, request, session, url_for   
 )
+import functools
 #libreria para encriptar claves
 from werkzeug.security import check_password_hash, generate_password_hash
 #importación del modelo usuario el cual crea la tabla dentro de la base de datos
