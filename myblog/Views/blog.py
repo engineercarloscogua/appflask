@@ -25,7 +25,7 @@ blog = Blueprint('blog', __name__)
 def get_user(id):
     #consulta en la base de datos el id o retorna 404 si no existe
     user = User.query.get_or_404(id)
-    return user #retoan el usuario obtenido
+    return user #retorna el usuario obtenido
 
 #---------LISTADO DE TODAS LAS PUBLICACIONES -------------------
 #decorando que todo empiece desde el inicio
@@ -51,7 +51,7 @@ def register():
         #objeto del modelo User para enviar los valores a la BD definitivo con body encriptado
         
         #variable que contiene el post importado envia el id el titutlo y el cuerpo
-        posts = Post(g.User.id , title, body) 
+        posts = Post(g.user.id , title, body) 
         
         #verificación de errores
         error = None
