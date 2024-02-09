@@ -69,3 +69,37 @@ def register():
             return redirect(url_for('blog.index')) # Redirige al usuario a la página de inicio            
         flash(error) #Muestra el mensaje de error si lo hay
     return render_template('blog/create_blog.html') # Renderiza la plantilla 'blog/create_blog.html' para el formulario de creación de posts
+#============================Actualizar una publicación ===========================
+# funsión para obtener un posteo
+def get_post(id, check_author= True):
+    #consulta en la base de datos el id o retorna 404 si no existe
+    post = Post.query.get_or_404(id) # Obtiene un postero por su ID desde la base de datos o devuelve un error 404 si no se encuentra
+    return post #retorna el post
+
+#===========edicioón ==============
+# update_blog/<int:id> obteniendo el id en la url y conviertiendolo a entero
+@blog.route('/blog/update_blog/<int:id>', methods=('GET','POST')) # mothods = ('GET', 'POST') DECORADOR DIRECCIONA LA RUTA Y PERMITE ENVIO TEXTO POR GET O HTML CON POST
+@login_required # Requiere que el usuario esté autenticado para acceder a esta vista
+def register(id):
+    #verificando el envio de información con el metodo post usado en el Html register
+    # Obteniendo el posteo
+    post = get_post(id) #le elvia el id que esta recibiendo en el html para verificar el titulo y el cuerpo
+    if request.method == 'POST':
+        #Actualizando los datos del post obtenido
+        post.title = request.form.get('title')
+        post.body = request.form.get('body')
+        #objeto del modelo User para enviar los valores a la BD definitivo con body encriptado
+        #verificación de errores
+        error = None
+        #Verificando que los campos no esten vacios
+        if not post.title:
+            error = 'Se requiere agregar un titulo'
+        if error is not None:  # Muestra el mensaje de error si hay alguno
+            flash(error) #Mostrar el error 
+        else:
+            #registrar el titulo agregando los datos almacenandolos en post en la DB sql , # Registra el post en la base de datos
+            db.session.add(post)
+            db.session.commit()
+            return redirect(url_for('blog.index')) # Redirige al usuario a la página de inicio            
+        flash(error) #Muestra el mensaje de error si lo hay
+    return render_template('blog/update_blog.html', post= post) #renderiza y envia un objeto post
