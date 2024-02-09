@@ -17,8 +17,14 @@
             </a>
         </div>
         <nav>
-            <a href="">Registrar usuario</a>
+            <!-- Validación de Registro para no heredar todas las opciones-->
+            {% if g.user %} <!--Verifica con g si el usuario ya esta logueado-->
+            <samp> {{ g.user.username }} </samp><!--COntendra el nombre de uaurio ya logueado-->
+            <a href={{}}]>Cerrar Sesión</a>
+            {% else %} <!--Si no esta logueado que muestre las opciones -->
+            <a href="register">Registrar usuario</a>
             <a href="login">Iniciar Sesión</a>
+            {% endif %}
         </nav>
         
 
