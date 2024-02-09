@@ -12,7 +12,7 @@
 <body>
     <header>
         <div>
-            <a href="">
+            <a href="{{ url_for('blog.index') }}">
                 <h1>Mi blog</h1>
             </a>
         </div>
@@ -20,10 +20,10 @@
             <!-- Validación de Registro para no heredar todas las opciones-->
             {% if g.user %} <!--Verifica con g si el usuario ya esta logueado-->
             <samp> {{ g.user.username }} </samp><!--COntendra el nombre de uaurio ya logueado-->
-            <a href={{}}]>Cerrar Sesión</a>
+            <a href="{{ url_for('auth.logout') }}" >Cerrar Sesión</a> <!-- no hay vistas para cerrar sesión urlfor lo envia al incio-->
             {% else %} <!--Si no esta logueado que muestre las opciones -->
-            <a href="register">Registrar usuario</a>
-            <a href="login">Iniciar Sesión</a>
+            <a href="{{ url_for('auth.register') }}">Registrar usuario</a>
+            <a href="{{ url_for('auth.login') }}">Iniciar Sesión</a>
             {% endif %}
         </nav>
         
