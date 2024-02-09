@@ -6,12 +6,16 @@
 {% endblock %}
 
 {%block content%} 
-<!--EL METODO POST NO PERMITE QUE LA URL SE VEAN LOS DATOS QUE SE ESTAN ENVIANDO-->
+<!-- Define el contenido principal de la página -->
+    <!-- El método POST se utiliza para enviar los datos del formulario de manera segura -->
     <form method="POST">
         <label for="username">Nombre de Usuario</label>
+         <!-- Campo de entrada de texto para el nombre de usuario. El atributo "required" indica que este campo es obligatorio -->
         <input type="text" name="username" id = "username" required>
         <label for="password">Contraseña</label>
+        <!-- Campo de entrada de contraseña. El tipo "password" oculta los caracteres de la contraseña. El atributo "required" indica que este campo es obligatorio -->
         <input type="password" name="password" id = "password" required>
+        <!-- Botón de envío del formulario -->
         <input type="submit", value="Iniciar Sesión">
     </form>
 {% endblock %}

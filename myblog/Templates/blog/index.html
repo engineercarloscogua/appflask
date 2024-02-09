@@ -5,23 +5,33 @@
 
 <!--Mostrat publicaciones-->
 {%block content%} 
-<!--iterando plantillas-->
+<!-- Comienza un bucle for que iterará sobre todos los posts -->
 {% for post in posts %}
-<!--Estrcutura-->
+<!-- Abre un artículo HTML para mostrar un post -->
     <article>
+        <!-- Encabezado del artículo -->
         <header>
+            <!-- Imprime el título del post actual -->
             <h1>{{post.title}}</h1>
+            <!-- Muestra información sobre el autor y la fecha de creación -->
+            <!-- Utiliza la función get_user para obtener el nombre de usuario del autor -->
             <div> Publicado por {{ get_user(post.author).username}}
+                <!-- Imprime la fecha de creación del post en el formato especificado -->
                 el {{ post.created.strftime('%Y-%m-%d') }}
             </div>
         </header>
+         <!-- Cuerpo del artículo -->
         <div>
+             <!-- Imprime el cuerpo del post actual -->
             <p>{{post.body}}</p>
         </div>
         
     </article>
+    <!-- Fin del artículo -->
 
 {%endfor%}
+<!-- Fin del bucle for -->
     
 {% endblock %}
+<!-- Fin del bloque, aunque no se vea el bloque en este fragmento de código -->
 
