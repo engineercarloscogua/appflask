@@ -1,6 +1,10 @@
 {%extends 'base.html'%} 
 {%block header%} 
     <h2>{%block title%} Publicaciones {% endblock %}</h2>
+    <!--Validando el usuario logueado para poder editar o eliminar posteos-->
+    {% if g.user %} <!--G es una libreria y poermite obtener los datos/ verifica el logeo -->
+        <a href="{{url_for('blog.create')}}"> Crear publicaciín</a>
+    {% endif %}
 {% endblock %}
 
 <!--Mostrat publicaciones-->
@@ -11,14 +15,26 @@
     <article>
         <!-- Encabezado del artículo -->
         <header>
-            <!-- Imprime el título del post actual -->
-            <h1>{{post.title}}</h1>
-            <!-- Muestra información sobre el autor y la fecha de creación -->
-            <!-- Utiliza la función get_user para obtener el nombre de usuario del autor -->
-            <div> Publicado por {{ get_user(post.author).username}}
-                <!-- Imprime la fecha de creación del post en el formato especificado -->
-                el {{ post.created.strftime('%Y-%m-%d') }}
+            <div>
+                    <!-- Imprime el título del post actual -->
+                <h1>{{post.title}}</h1>
+                <!-- Muestra información sobre el autor y la fecha de creación -->
+                <!-- Utiliza la función get_user para obtener el nombre de usuario del autor -->
+                <div> Publicado por {{ get_user(post.author).username}}
+                    <!-- Imprime la fecha de creación del post en el formato especificado -->
+                    el {{ post.created.strftime('%Y-%m-%d') }}
+                </div>
             </div>
+            <!---->
+            <div>
+                {% if g.user.id == post.author%} <!--Evita que otros usuarios editen o borren contenido de otros si el id, coincide con el id del autor -->
+                <!--Enlace editar-->
+                <a href="{{url_for('blog.update', id = post.id)}}"> Editar </a>
+                <!--Enlace eliminar-->
+                <a href="{{url_for('blog.delete', id = post.id )}}"> Eliminar </a>
+                {% endif %}
+            </div>
+           
         </header>
          <!-- Cuerpo del artículo -->
         <div>

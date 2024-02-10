@@ -45,7 +45,7 @@ def index():
 #====================================Vista para crear un nuevo post =======================================================
 @blog.route('/blog/create_blog', methods=('GET','POST')) # mothods = ('GET', 'POST') DECORADOR DIRECCIONA LA RUTA Y PERMITE ENVIO TEXTO POR GET O HTML CON POST
 @login_required # Requiere que el usuario esté autenticado para acceder a esta vista
-def register():
+def create():
     #verificando el envio de información con el metodo post usado en el Html register
     if request.method == 'POST':
         #capturando temporalmente los datos del formulario
@@ -73,14 +73,21 @@ def register():
 # funsión para obtener un posteo
 def get_post(id, check_author= True):
     #consulta en la base de datos el id o retorna 404 si no existe
-    post = Post.query.get_or_404(id) # Obtiene un postero por su ID desde la base de datos o devuelve un error 404 si no se encuentra
+    post = Post.query.get(id) # Obtiene un postero por su ID desde la base de datos o devuelve un error 404 si no se encuentra
+    #Condiciones para analizar el error
+    if post is None:
+        abort(404, f'id{id} de la pubñlicación no existe')        
+    #Chequeando el autor si es distingo al id del autor 
+    if check_author and post.author != g.user.id:
+        abort(404)        
+    
     return post #retorna el post
 
 #===========edicioón ==============
 # update_blog/<int:id> obteniendo el id en la url y conviertiendolo a entero
 @blog.route('/blog/update_blog/<int:id>', methods=('GET','POST')) # mothods = ('GET', 'POST') DECORADOR DIRECCIONA LA RUTA Y PERMITE ENVIO TEXTO POR GET O HTML CON POST
 @login_required # Requiere que el usuario esté autenticado para acceder a esta vista
-def register(id):
+def update(id):
     #verificando el envio de información con el metodo post usado en el Html register
     # Obteniendo el posteo
     post = get_post(id) #le elvia el id que esta recibiendo en el html para verificar el titulo y el cuerpo
@@ -98,8 +105,18 @@ def register(id):
             flash(error) #Mostrar el error 
         else:
             #registrar el titulo agregando los datos almacenandolos en post en la DB sql , # Registra el post en la base de datos
-            db.session.add(post)
+            db.session.add(post) #registra un nuevo objeto o sino solo actualiza
             db.session.commit()
             return redirect(url_for('blog.index')) # Redirige al usuario a la página de inicio            
         flash(error) #Muestra el mensaje de error si lo hay
-    return render_template('blog/update_blog.html', post= post) #renderiza y envia un objeto post
+    return render_template('blog/update_blog.html', post= post) #renderiza y envia un objeto posteo para actualizar cada campo
+#==========Eliminar un posteo ==============================================================
+@blog.route('/blog/delete/<int:id>') #recibe el id del objeto a eliminar 
+@login_required # Requiere que el usuario esté autenticado para acceder a esta vista y eliminar
+def delete(id): #recibe el id 
+    post = get_post(id) #en post se almacena el id y arrastra la info del post en el onjeto
+    db.session.delete(post) # elimina todos los datos del objeti post
+    db.session.commit() # coemeter el cambio
+    
+    #redireccionar despues de eliminar
+    return redirect(url_for('blog.index'))
