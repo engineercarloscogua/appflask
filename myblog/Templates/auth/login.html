@@ -8,14 +8,29 @@
 {%block content%} 
 <!-- Define el contenido principal de la página -->
     <!-- El método POST se utiliza para enviar los datos del formulario de manera segura -->
-    <form method="POST">
-        <label for="username">Nombre de Usuario</label>
-         <!-- Campo de entrada de texto para el nombre de usuario. El atributo "required" indica que este campo es obligatorio -->
-        <input type="text" name="username" id = "username" required>
-        <label for="password">Contraseña</label>
-        <!-- Campo de entrada de contraseña. El tipo "password" oculta los caracteres de la contraseña. El atributo "required" indica que este campo es obligatorio -->
-        <input type="password" name="password" id = "password" required>
-        <!-- Botón de envío del formulario -->
-        <input type="submit", value="Iniciar Sesión" class="btn btn-primary"  role="button">        
-    </form>
+
+
+    <form class="px-4 py-3" method="POST"> <!--Metodo post muy importante para enviar la info a la BD-->
+        <div class="mb-3">
+        <label for="username" class="form-label">Nombre de Usuario</label>
+        <!-- Etiqueta para el campo de nombre de usuario imrpotante name="username" id = "username"   -->
+        <input type="text" class="form-control" name="username" id = "username" required>
+        </div>
+        <div class="mb-3">
+        <label  for="password" required class="form-label">Contraseña</label>
+        <!-- Etiqueta para el campo de nombre de usuario imrpotante name="password" id = "password" que estan en los modelos  -->
+        <input type="password" class="form-control"  name="password" id = "password" required>
+        </div>
+        <!--
+        <div class="mb-3">
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="dropdownCheck">
+            <label class="form-check-label" for="dropdownCheck">
+            Remember me
+            </label>
+        </div>
+        </div>-->
+        <button type="submit", value="Iniciar Sesión" class="btn btn-success">Entrar</button>
+        <!--A diferencia del registro lo unic que cambia es el value="Iniciar Sesión" el cual comunica con el controlador -->
+    </form>   
 {% endblock %}
