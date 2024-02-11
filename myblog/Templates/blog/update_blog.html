@@ -10,9 +10,9 @@
 <!--EL METODO POST NO PERMITE QUE LA URL SE VEAN LOS DATOS QUE SE ESTAN ENVIANDO-->
     <form method="POST">
         <label for="title">Titulo</label>
-        <input type="text" name="title" id = "title" value = " " required> <!--Value tiene todo lo que se va a recuperar de la base de datos -->
+        <input type="text" name="title" id = "title" value = "{{post.title}} " required> <!--Value tiene todo lo que se va a recuperar de la base de datos -->
         <label for="body">Contenido</label> 
-        <textarea name="body" id="body" cols="30" rows="10"></textarea>
+        <textarea name="body" id="body" cols="30" rows="10" > {{post.body}} </textarea>
         <input type="submit", value="Guardar">
     </form>
 {% endblock %}

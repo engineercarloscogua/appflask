@@ -15,6 +15,17 @@
     <article>
         <!-- Encabezado del artículo -->
         <header>
+            <div class="card border-info mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                    Publicado por {{ get_user(post.author).username}}
+                    <!-- Imprime la fecha de creación del post en el formato especificado -->
+                    el {{ post.created.strftime('%Y-%m-%d') }}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{post.title}}</h5>
+                    <p class="card-text">{{post.body}}</p>
+                    </div>
+                </div>
             <div>
                     <!-- Imprime el título del post actual -->
                 <h1>{{post.title}}</h1>
