@@ -21,6 +21,7 @@ class ProductionConfig(Config):
     DEBUG = False
 
 class DevelopmentConfig(Config):
+    
     # Clave secreta para el entorno de desarrollo
     SECRET_KEY = 'dev'
     # Activa el modo de depuración (debug) y pruebas (testing)

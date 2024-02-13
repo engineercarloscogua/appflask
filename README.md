@@ -1,8 +1,8 @@
 # 1. instalación de Python
 # 2. intalación Flask
 # 3. Actualizacion de pip
-# 4. instalación mysql
-# 5. instalación myschema
+# 4. instalación mysql  pip install Flask-SQLAlchemy
+# 5. instalación pip install myschema
 # 6. crear entorno virtual
 # 7. gitignore
 # 8. blog_db es un paquete que arranca las configuraciones iniciales

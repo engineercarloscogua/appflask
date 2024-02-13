@@ -1,56 +1,64 @@
 {%extends 'base.html'%} 
-{%block header%} 
-    <h2>{%block title%} Publicaciones {% endblock %}</h2>
-    <!--Validando el usuario logueado para poder editar o eliminar posteos-->
-    {% if g.user %} <!--G es una libreria y poermite obtener los datos/ verifica el logeo -->
-        <a href="{{url_for('blog.create')}}"> Crear publicaciín</a>
-    {% endif %}
-{% endblock %}
+
 
 <!--Mostrat publicaciones-->
 {%block content%} 
 <!-- Comienza un bucle for que iterará sobre todos los posts -->
+<h2 style="text-align: center;">{%block title%} Publicaciones {% endblock %}</h2>
+{%block header%} 
+                
+                <!--Validando el usuario logueado para poder editar o eliminar posteos-->
+                {% if g.user %} <!--G es una libreria y poermite obtener los datos/ verifica el logeo -->
+                    <a href="{{url_for('blog.create')}}"> Crear publicaciín</a>
+                {% endif %}
+            {% endblock %}
 {% for post in posts %}
 <!-- Abre un artículo HTML para mostrar un post -->
     <article>
         <!-- Encabezado del artículo -->
         <header>
-            <div class="card border-info mb-3" style="max-width: 18rem;">
-                <div class="card-header">
-                    Publicado por {{ get_user(post.author).username}}
-                    <!-- Imprime la fecha de creación del post en el formato especificado -->
-                    el {{ post.created.strftime('%Y-%m-%d') }}
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{post.title}}</h5>
-                    <p class="card-text">{{post.body}}</p>
+            
+            <!---aaaaaaaaaaaaaaaaaaaaaaaaaaaaa-->
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <!-- Post preview-->
+                        <div class="post-preview">
+                            <a href="">
+                                <h2 class="post-title"> {{post.title}} </h2>
+                                <h3 class="post-subtitle"> {{post.body}} </h3>
+                            </a>
+                            <p class="post-meta">
+                                <!-- Muestra información sobre el autor y la fecha de creación -->
+                                <!-- Utiliza la función get_user para obtener el nombre de usuario del autor -->
+                                Publicado por {{ get_user(post.author).username}}
+                                <!-- Imprime la fecha de creación del post en el formato especificado -->
+                                el {{ post.created.strftime('%Y-%m-%d') }}
+                            </p>
+                        </div>
+                        <div>
+                            {% if g.user.id == post.author%} <!--Evita que otros usuarios editen o borren contenido de otros si el id, coincide con el id del autor -->
+                            <!--Enlace editar-->
+                            <a href="{{url_for('blog.update', id = post.id)}}"> Editar </a>
+                            <!--Enlace eliminar-->
+                            <a href="{{url_for('blog.delete', id = post.id )}}"> Eliminar </a>
+                            {% endif %}
+                        </div>
+                        <!-- Divider-->
+                        <hr class="my-4" />                       
+                        <!-- Pager-->
+                        <!--<div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div> -->
                     </div>
                 </div>
-            <div>
-                    <!-- Imprime el título del post actual -->
-                <h1>{{post.title}}</h1>
-                <!-- Muestra información sobre el autor y la fecha de creación -->
-                <!-- Utiliza la función get_user para obtener el nombre de usuario del autor -->
-                <div> Publicado por {{ get_user(post.author).username}}
-                    <!-- Imprime la fecha de creación del post en el formato especificado -->
-                    el {{ post.created.strftime('%Y-%m-%d') }}
-                </div>
+                
             </div>
-            <!---->
-            <div>
-                {% if g.user.id == post.author%} <!--Evita que otros usuarios editen o borren contenido de otros si el id, coincide con el id del autor -->
-                <!--Enlace editar-->
-                <a href="{{url_for('blog.update', id = post.id)}}"> Editar </a>
-                <!--Enlace eliminar-->
-                <a href="{{url_for('blog.delete', id = post.id )}}"> Eliminar </a>
-                {% endif %}
-            </div>
-           
+            
+        
         </header>
-         <!-- Cuerpo del artículo -->
+        <!-- Cuerpo del artículo -->
         <div>
-             <!-- Imprime el cuerpo del post actual -->
-            <p>{{post.body}}</p>
+            <!-- Imprime el cuerpo del post actual -->
+            <!--<p>{{post.body}}</p> -->
         </div>
         
     </article>

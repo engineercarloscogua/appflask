@@ -1,14 +1,12 @@
 <!--Todo lo que tenga Extends es heredado-->
 {%extends 'base.html'%} 
 
-{%block header%} 
-    <h2>{%block title%} INICIAR SESIÓN {% endblock %}</h2>
-{% endblock %}
+
 
 {%block content%} 
 <!-- Define el contenido principal de la página -->
     <!-- El método POST se utiliza para enviar los datos del formulario de manera segura -->
-
+    <h2 style ="text-align: center;">{%block title%} INICIAR SESIÓN {% endblock %}</h2>
 
     <form class="px-4 py-3" method="POST"> <!--Metodo post muy importante para enviar la info a la BD-->
         <div class="mb-3">
