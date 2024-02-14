@@ -2,18 +2,19 @@
 <!-- Este archivo HTML hereda de 'base.html', lo que significa que incluirá todo el contenido de 'base.html' y también puede modificarlo o agregar contenido adicional -->
 {%extends 'base.html'%} 
 
-{%block header%} 
-    <h2>{%block title%} Actualizar publicación {% endblock %}</h2>
-{% endblock %}
-
 {%block content%} 
+<h2 style="text-align: center;">{%block title%} Actualizar publicación {% endblock %}</h2>
 <!--EL METODO POST NO PERMITE QUE LA URL SE VEAN LOS DATOS QUE SE ESTAN ENVIANDO-->
-    <form method="POST">
-        <label for="title">Titulo</label>
-        <input type="text" name="title" id = "title" value = "{{post.title}} " required> <!--Value tiene todo lo que se va a recuperar de la base de datos -->
-        <label for="body">Contenido</label> 
-        <textarea name="body" id="body" cols="30" rows="10" > {{post.body}} </textarea>
-        <input type="submit", value="Guardar">
-    </form>
+<form method="POST">
+    <div class="mb-3">
+        <label for="title" ><h5>Titulo</h5></label>
+        <input  class="form-control" type="text" name="title" id = "title" value = "{{post.title}} " required>
+    </div>
+    <div class="mb-3">
+        <label for="body" > <h5>Contenido</h5></label>
+        <textarea class="form-control" name="body" id="body" cols="10" rows="10" rows="3"> {{post.body}} </textarea>
+        <input type="submit", value="Guardar" type="button" class="btn btn-success">
+    </div>
+</form>
 {% endblock %}
 <!--Despues de crear una plantilla hay que registrar el blueprint en __init__.py principal-->

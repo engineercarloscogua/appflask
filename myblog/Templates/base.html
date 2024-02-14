@@ -31,18 +31,25 @@
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
+                
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <!--Valida si esta logueado y no muestre las opciones de iniciar seción o registrar sino de cerrar seción-->
+                        {% if g.user %}                                             
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('auth.logout') }}">Cerrar Sesión</a></li>                        
+                        {% else %}
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('blog.index') }}">Publicaciones</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('auth.register') }}">Registrarse</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('auth.login') }}">Iniciar Sesión</a></li>
+                        {% endif %}
                         <!-- <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li> -->
                     </ul>
                 </div>
+
             </div>
         </nav>
         <!-- Page Header-->
-        <header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/home-bg.jpg') }}');"> 
+        <header class="masthead" style = " background-image: url('{{ url_for('static', filename='assets/img/home-bg.jpg') }}');"> 
             <div class="container position-relative px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
@@ -56,6 +63,10 @@
             {%block header%} 
             {% endblock %}
         </header>
+        <!--Valida si esta logueado y muestra el nombre del usuario -->
+        {% if g.user %}
+                        <p>Bienvenido : {{ g.user.username }}</p>  
+        {% endif %}
         <!--Flasheando errores reccoriendo todos los mensajes -->
         {% for message in get_flashed_messages() %}
         <!--Mostrando el mensaje-->

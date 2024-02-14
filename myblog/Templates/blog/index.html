@@ -3,15 +3,16 @@
 
 <!--Mostrat publicaciones-->
 {%block content%} 
+<!--Validando el usuario logueado para poder editar o eliminar posteos-->
+{% if g.user %} <!--G es una libreria y poermite obtener los datos/ verifica el logeo -->
+    <a href="{{url_for('blog.create')}}" type="button" class="btn btn-info" style="text-align: center;"> Crear Nueva Publicación</a>
+{% endif %}
 <!-- Comienza un bucle for que iterará sobre todos los posts -->
-<h2 style="text-align: center;">{%block title%} Publicaciones {% endblock %}</h2>
-{%block header%} 
+<h2 style="text-align: center; color: blue;">{%block title%} Publicaciones {% endblock %}</h2>
+<hr>
                 
-                <!--Validando el usuario logueado para poder editar o eliminar posteos-->
-                {% if g.user %} <!--G es una libreria y poermite obtener los datos/ verifica el logeo -->
-                    <a href="{{url_for('blog.create')}}"> Crear publicaciín</a>
-                {% endif %}
-            {% endblock %}
+
+            
 {% for post in posts %}
 <!-- Abre un artículo HTML para mostrar un post -->
     <article>
@@ -24,10 +25,9 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <!-- Post preview-->
                         <div class="post-preview">
-                            <a href="">
-                                <h2 class="post-title"> {{post.title}} </h2>
-                                <h3 class="post-subtitle"> {{post.body}} </h3>
-                            </a>
+                            
+                            <h3 class="post-title"> {{post.title}} </h3>
+                            <p style="text-align: justify;">{{post.body}}</p>                    
                             <p class="post-meta">
                                 <!-- Muestra información sobre el autor y la fecha de creación -->
                                 <!-- Utiliza la función get_user para obtener el nombre de usuario del autor -->
@@ -39,9 +39,11 @@
                         <div>
                             {% if g.user.id == post.author%} <!--Evita que otros usuarios editen o borren contenido de otros si el id, coincide con el id del autor -->
                             <!--Enlace editar-->
-                            <a href="{{url_for('blog.update', id = post.id)}}"> Editar </a>
+                            <a href="{{url_for('blog.update', id = post.id)}}" type="button" class="btn btn-warning"> Editar </a>
+                            
                             <!--Enlace eliminar-->
-                            <a href="{{url_for('blog.delete', id = post.id )}}"> Eliminar </a>
+                            <a href="{{url_for('blog.delete', id = post.id )}}" type="button" class="btn btn-danger"> Eliminar </a>
+                            
                             {% endif %}
                         </div>
                         <!-- Divider-->
