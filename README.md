@@ -1,12 +1,16 @@
+# 0 crear un entorno virtuak python -m venv venv
 # 1. instalación de Python
 # 2. intalación Flask pip install flask
 # 3. Actualizacion de pip
 # 4. instalación mysql  pip install Flask-SQLAlchemy
 # 5. instalación pip install myschema
+# pip install pymysql
 # 6. crear entorno virtual
 # 7. gitignore
 # 8. blog_db es un paquete que arranca las configuraciones iniciales
-# librerias blinker            1.7.0
+# pip freeze permite ver todas las configuraciones o librerias iniciales
+# actualizar librerias comando : pip freeze > requirements.txt
+
 click              8.1.7cd 
 colorama           0.4.6
 Flask              3.0.1
