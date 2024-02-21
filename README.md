@@ -1,4 +1,5 @@
 # 0 crear un entorno virtuak python -m venv venv
+# desde app raiz usar osea no en el enttorno virtual :   pip install -r requirements.txt
 # 1. instalación de Python
 # 2. intalación Flask pip install flask
 # 3. Actualizacion de pip
