@@ -1,5 +1,5 @@
 # 1. instalación de Python
-# 2. intalación Flask
+# 2. intalación Flask pip install flask
 # 3. Actualizacion de pip
 # 4. instalación mysql  pip install Flask-SQLAlchemy
 # 5. instalación pip install myschema
@@ -7,7 +7,7 @@
 # 7. gitignore
 # 8. blog_db es un paquete que arranca las configuraciones iniciales
 # librerias blinker            1.7.0
-click              8.1.7
+click              8.1.7cd 
 colorama           0.4.6
 Flask              3.0.1
 Flask-SQLAlchemy   3.1.1

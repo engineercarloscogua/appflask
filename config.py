@@ -9,7 +9,7 @@ class Config:
     #debe estar credala base de datos ejemplo blog_db
     # Configuración de la URI de la base de datos
     # Aquí se especifica la URI para conectarse a la base de datos MySQL
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:Villadavid20@localhost:3308/blog_db"   
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:Villadavid20@localhost:3306/blog_db"   
     # El formato de la URI de la base de datos debe ser: 
     # mysql+pymysql://<usuario>:<contraseña>@<host>:<puerto>/<nombre_base_de_datos>
     # En este caso, se conecta a MySQL, usando el usuario 'root' y contraseña 'Villadavid20',
