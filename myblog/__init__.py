@@ -1,4 +1,6 @@
 # Importa la clase Flask desde el módulo flask
+#* No esta aquí pero es request, se puede importar y se usa para crear objetos que contiene información del cliente como IP, desde el navegador al servidor
+#* make response permite Hacer una redireccion para el client en el servidor
 from flask import Flask
 # Importa la clase SQLAlchemy desde el módulo flask_sqlalchemy
 from flask_sqlalchemy import SQLAlchemy 
