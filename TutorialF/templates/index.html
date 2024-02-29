@@ -9,5 +9,11 @@
 <body>
     <h1>{{titulo}}</h1>
     <h1>¡Hola Mundo!</h1>
+
+    <!--Iterando los datos del listado en el archivo py-->
+    {%for valor in listado %} <!--La variable valor  solo exixte dentro del FOr y listado es la variable de la lista en el archivo py-->
+    <p>{{valor}}</p>
+    {%endfor %}
+
 </body>
 </html>
