@@ -36,7 +36,9 @@ app = Flask(__name__) # crea una instancia ( Objeto )de la aplicación Flask
 #!RUTA SIN VARIABLES NI EXTENCIONES
 @app.route('/') #* Este decorador se usa para asociar una vista con una ruta URL específica.
 def index():
-    return render_template('index.html')
+    #creando variable para mostrar con jinja
+    titulo = "Casa!!"
+    return render_template('index.html', titulo=titulo)
 
 #! RUTA CON VARIABLE ENTERA
 #@app.route("/valor/<int:n>")
