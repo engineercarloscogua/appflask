@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {%block titulo %}
+
+        {%endblock%}
+    </title>
+    <!--Forma de llamar archivos estaticos usando sintaxis de jinja 2 con el metodo url_for()-->
+    <link rel = "shortcut icon" href ="{{ url_for('static', filename= 'img/icon.png')}}">
+</head>
+<body>
+    <!--hereda para cualquiera que use contenido-->
+   {% block contenido %}
+     
+   {% endblock %}
+</body>
+</html>

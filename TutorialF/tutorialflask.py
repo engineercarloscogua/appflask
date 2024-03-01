@@ -41,7 +41,7 @@ def index():
     #creando listado para mostrar con jinja como {% %}
     listado = ['carlos','juan','camilo','maria']
     
-    return render_template('index.html', titulo=titulo, listado=listado)
+    return render_template('indextutorial.html', titulo=titulo, listado=listado)
 
 #! RUTA CON VARIABLE ENTERA
 #@app.route("/valor/<int:n>")
