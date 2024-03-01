@@ -1,10 +1,27 @@
 from flask import Flask, render_template 
+from flask_sqlalchemy import SQLAlchemy 
+import os
 #* flask --app tutorialflask  run   con este comando puede correr esta app de pruebas
 #! app es el nombre de la variable que se utiliza para almacenar la instancia de la aplicación.
 #!Flask es la clase que se utiliza para crear la instancia de la aplicación.
 #!__name__ es una variable especial que contiene el nombre del módulo que se está ejecutando.
-app = Flask(__name__) # crea una instancia ( Objeto )de la aplicación Flask
 
+#* sqlite /// es un conector , os.path toma la ruta absoluta actual y le agrega la bd
+ruta= "sqlite:///"+ os.path.abspath(os.getcwd())+ "/database.db"
+
+appnueva = Flask(__name__) # crea una instancia ( Objeto )de la aplicación Flask
+
+#confoguraciones de la BD
+appnueva.config["SQLALCHEMY_DATABASE_URI"]= ruta
+appnueva.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+#crea variable almacenando con la clase sqlachemy la appnueva
+database= SQLAlchemy(appnueva)
+
+#Creando el esquema o modelo de DB
+class Posts(database.Model):
+    #columnas / atributos 
+    id = database.Column(database.Integer, primary_key =True)
+    title = database.Column(database.String(50))
 
 #! RUTAS 
 
@@ -34,7 +51,7 @@ app = Flask(__name__) # crea una instancia ( Objeto )de la aplicación Flask
 #Ejemplo: Un convertidor para convertir una cadena a una fecha.
 
 #!RUTA SIN VARIABLES NI EXTENCIONES
-@app.route('/') #* Este decorador se usa para asociar una vista con una ruta URL específica.
+@appnueva.route('/') #* Este decorador se usa para asociar una vista con una ruta URL específica.
 def index():
     #creando variable para mostrar con jinja {{}}
     titulo = "Casa!!"
@@ -71,8 +88,11 @@ def index():
 
 #! Comprueba si el módulo se está ejecutando como el programa principal.
 if __name__ == "__main__": #! Cuando se ejecuta un archivo Python, el valor de la variable __name__ se establece como "__main__".
+   with appnueva.app_context(): # esta parte tiene que ir aqui no se para que 
+   #*indicando que cuando se cree el modulo se cree la db
+    database.create_all()  #crea la base de datos 1 vez  
     #*Si el módulo se está ejecutando como el programa principal, ejecuta la aplicación Flask.
-    app.run(debug = True) #!La función app.run() inicia un servidor web local en el puerto 5000.
+    appnueva.run(debug = True) #!La función app.run() inicia un servidor web local en el puerto 5000.
 #! En resumen, el modo debug es una herramienta útil para principiantes que están aprendiendo a programar. Te ayuda a encontrar errores, entender tu código y probar cosas nuevas. Sin embargo, no es necesario para el producto final y puede ser un poco lento e informativo.
 
 
