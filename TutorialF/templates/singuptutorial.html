@@ -1,0 +1,14 @@
+{% extends "basetutorial.html"%}
+{% block titulo %}
+Sing Up 
+{% endblock %}
+
+{% block contenido %}
+<h1> Sing up </h1> 
+<form method="post" action="{{url_for('singuptutorial')}}">
+    <p> <input name= "username" type="text"> </p>
+    <p> <input name= "password" type="password"> </p>
+    <input type= "submit" value = "Sing Up">
+</form>
+
+{% endblock %}

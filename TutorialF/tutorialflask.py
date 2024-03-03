@@ -6,7 +6,7 @@ import os
 #!Flask es la clase que se utiliza para crear la instancia de la aplicación.
 #!__name__ es una variable especial que contiene el nombre del módulo que se está ejecutando.
 
-#* sqlite /// es un conector , os.path toma la ruta absoluta actual y le agrega la bd
+#* Direccion de la BD - sqlite /// es un conector , os.path toma la ruta absoluta actual y le agrega la bd
 ruta= "sqlite:///"+ os.path.abspath(os.getcwd())+ "/database.db"
 
 appnueva = Flask(__name__) # crea una instancia ( Objeto )de la aplicación Flask
@@ -21,8 +21,14 @@ database= SQLAlchemy(appnueva)
 class Posts(database.Model):
     #columnas / atributos 
     id = database.Column(database.Integer, primary_key =True)
-    title = database.Column(database.String(50))
+    title = database.Column(database.String(50), unique = True, nullable = True)
 
+class Users(database.Model):
+    id = database.Column(database.Integer, primary_key =True)
+    username = database.Column(database.String(50), unique = True, nullable= True)
+    password = database.Column(database.String(80), nullable = True)
+    
+    
 #! RUTAS 
 
 #

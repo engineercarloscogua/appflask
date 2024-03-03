@@ -7,4 +7,11 @@ tutorial
 
 {% block contenido %}
 <h2 style = "text-align: center;">Hola  mundisimo </h2>
+<!--Formulario-->
+<form method = "get" action ="{{url_for('search')}}">
+   <p>
+    <input type = "text" name = "nikcname">
+   </p>
+   <input type= "submit" value= "Search">
+</form>
 {% endblock %}
