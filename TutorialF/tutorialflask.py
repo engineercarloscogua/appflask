@@ -1,4 +1,14 @@
-from flask import Flask, render_template 
+from flask import (
+    Flask,
+    render_template, 
+    request, #*Sirve oara doferenciar cuando una ruta recibe un metodo get o post
+    
+    )
+
+# función para encriptar claves
+from werkzeug.security import generate_password_hash, check_password_hash, generate_password_hash 
+
+
 from flask_sqlalchemy import SQLAlchemy 
 import os
 #* flask --app tutorialflask  run   con este comando puede correr esta app de pruebas
@@ -57,14 +67,24 @@ class Users(database.Model):
 #Ejemplo: Un convertidor para convertir una cadena a una fecha.
 
 #!RUTA SIN VARIABLES NI EXTENCIONES
-@appnueva.route('/') #* Este decorador se usa para asociar una vista con una ruta URL específica.
-def index():
-    #creando variable para mostrar con jinja {{}}
-    titulo = "Casa!!"
-    #creando listado para mostrar con jinja como {% %}
-    listado = ['carlos','juan','camilo','maria']
-    
-    return render_template('indextutorial.html', titulo=titulo, listado=listado)
+#* Nomralmente la ruta recibe peticiones tipo get aunque los formularios son post emtonces con una lista llamada methos podemos hacer que reciba ambos metodos
+@appnueva.route('/singuptutorial', methods =["GET", "POST"] ) #* Este decorador se usa para asociar una vista con una ruta URL específica.
+def singuptutorial():
+    #*Valida el tipo de metodo de donde esta extrayendo la información 
+    if request.method == "POST":
+        # hashed_pwd variable que contiene la contraseña encriptada
+        
+        #contruyecndo el objeto que se va almacenar en la BD
+        # este objeto hereda de la clase Users en la BD es decir el esquema
+        #[username] es el nombre del campo en el html
+        new_user = Users(username, generate_password_hash(password))  
+        #generando el registro en la DB
+        database.session.add(new_user) 
+        #neviando el cambio
+        database.session.Commit() 
+        return "Te has registrado Exitosamente"
+    return render_template('singuptutorial.html') #renderiza la plantilla html
+
 
 #! RUTA CON VARIABLE ENTERA
 #@app.route("/valor/<int:n>")
