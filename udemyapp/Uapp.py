@@ -10,7 +10,7 @@ Uapp = Flask(__name__)
 #*Rute's name must be equal to funtion name
 @Uapp.route("/") #the decorete associated a rute with the funtion
 def home ():
-    return render_template('home.html') # this line renders the template
+    return render_template('home.html', nombre= "el mejor programador") # this line renders the template, and passing a date witjh jinja2 in the template
 @Uapp.route("/login")
 def login ():
     return "This is the login"
