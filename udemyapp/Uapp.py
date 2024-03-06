@@ -22,7 +22,11 @@ def formulario ():
 #Creating a dinamic rute
 @Uapp.route("/dinamic", methods = ['GET', 'POST'])  #* for work with post method always must out the methods in the rute
 def dinamic():
-    return render_template('dinamic.html', nombre=request.form['code']) #* send args to form html template with the name
+    #validation if there is a method POST in the rute
+    if request.method == 'POST':
+        return render_template('dinamic.html', nombre=request.form['code']) #* send args to form html template with the name
+    else:
+        return 'No estas usando Metodo POST' #* Alert you haven't used the method POST
 #?-------------------END RUTES FUNTIONS ---------------------------------------------------------------
 #? -----------RUNNING APP-------------------------------------------------------------------------------
 #* Check if the module is running as principal program
