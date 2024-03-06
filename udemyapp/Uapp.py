@@ -1,6 +1,7 @@
 from flask import (
     Flask,
     render_template,
+    request
     )
 
 #* Name app must be the same as princiapl file 
@@ -15,9 +16,13 @@ def home ():
 def login ():
     return "This is the login"
 
-@Uapp.route("/tu-url")
+@Uapp.route("/form")
 def formulario ():
     return render_template('form.html')
+#Creating a dinamic rute
+@Uapp.route("/tu-url")
+def dinamic():
+    return render_template('dinamic.html', nombre=request.args['code']) #* send args to form html template with the name
 #?-------------------END RUTES FUNTIONS ---------------------------------------------------------------
 #? -----------RUNNING APP-------------------------------------------------------------------------------
 #* Check if the module is running as principal program
