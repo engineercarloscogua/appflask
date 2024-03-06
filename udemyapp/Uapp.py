@@ -20,9 +20,9 @@ def login ():
 def formulario ():
     return render_template('form.html')
 #Creating a dinamic rute
-@Uapp.route("/tu-url")
+@Uapp.route("/dinamic", methods = ['GET', 'POST'])  #* for work with post method always must out the methods in the rute
 def dinamic():
-    return render_template('dinamic.html', nombre=request.args['code']) #* send args to form html template with the name
+    return render_template('dinamic.html', nombre=request.form['code']) #* send args to form html template with the name
 #?-------------------END RUTES FUNTIONS ---------------------------------------------------------------
 #? -----------RUNNING APP-------------------------------------------------------------------------------
 #* Check if the module is running as principal program
