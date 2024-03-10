@@ -1,7 +1,9 @@
 from flask import (
     Flask,
     render_template,
-    request
+    request, #? extrae argumemntos de los formularios
+    redirect, #? redirecciona a otros templates
+    url_for
     )
 
 #* Name app must be the same as princiapl file 
@@ -9,6 +11,7 @@ Uapp = Flask(__name__)
 
 #?--------------------RUTES, ALL RUTES MUST HAVE YOUR OWN FUNTION-----------------------------------
 #*Rute's name must be equal to funtion name
+@Uapp.route("/home") 
 @Uapp.route("/") #the decorete associated a rute with the funtion
 def home ():
     return render_template('home.html', nombre= "el mejor programador") # this line renders the template, and passing a date witjh jinja2 in the template
@@ -26,7 +29,8 @@ def dinamic():
     if request.method == 'POST':
         return render_template('dinamic.html', nombre=request.form['code']) #* send args to form html template with the name
     else:
-        return 'No estas usando Metodo POST' #* Alert you haven't used the method POST
+        return redirect(url_for('home')) #* This metohd for using Get and don't pass params when it is redirecting another template
+        #return redirect('https://www.youtube.com/watch?v=hFCi-SCOZJM') #* maybe you can redirect another external website
 #?-------------------END RUTES FUNTIONS ---------------------------------------------------------------
 #? -----------RUNNING APP-------------------------------------------------------------------------------
 #* Check if the module is running as principal program
