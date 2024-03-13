@@ -6,7 +6,7 @@ from flask import (
     url_for
     )
 import json #* El paquete json en Flask serializa y deserializa datos JSON, facilitando el intercambio de datos con aplicaciones web y APIs.
-
+import os.path #importando metodo de python
 #* Name app must be the same as princiapl file 
 Uapp = Flask(__name__)
 
@@ -28,13 +28,29 @@ def formulario ():
 def dinamic():
     #validation if there is a method POST in the rute
     if request.method == 'POST':
-        # generating un diccionario que recibe los parametros url del formulario
-        urls = {request.form['url']: request.form['code']}
-        with open('urls.json', 'w') as url_file: # si no existe sarchivos url lo creara
-            json.dump(urls, url_file) # pasa el contenido del diccionario al archivo url_file
+        #* Verificación si el nombre del user y la url ya han sido ingresados para ser fedirigidos al home , 2 if 
+        # inicializate var utls empty
+        urls = {}
+        #si el aerchivo js ecxiste va a hacer esa comprovación
+        if os.path.exists('urls.json'):
+            with open('urls.json') as url_file: # Abre el archivo urls.json en modo lectura ('r').
+                urls = json.load(url_file) #Lee el contenido de urls.json como un objeto JSON y lo almacena en el diccionario urls.
+        
+        #Comprueba si el código enviado (accedido mediante request.form['code']) existe como clave en el diccionario urls.
+        #Si existe, redirige al usuario a la ruta de inicio (url_for('home')). Esto implica que el código podría ser un código de acceso válido        
+        if request.form['code'] in urls.keys():
+            return redirect(url_for('home')) 
+        
+        # si no existe el archivo JS almacena el code y la url en el diccionario  
+        urls = {request.form['code']: request.form['url']}
+        #Crea un nuevo par clave-valor en el diccionario
+        with open('urls.json', 'w') as url_file: # Abre el archivo urls.json en modo escritura ('w').
+            json.dump(urls, url_file) # Escribe el diccionario urls actualizado como un objeto JSON al archivo, Asigna el objeto del archivo abierto a url_file.
+            # Si el archivo no existía, se creará.
         return render_template('dinamic.html', nombre=request.form['code']) #* send args to form html template with the name
+    
     else:
-        return redirect(url_for('home')) #* This metohd for using Get and don't pass params when it is redirecting another template
+        return redirect(url_for('form')) #* This metohd for using Get and don't pass params when it is redirecting another template
         #return redirect('https://www.youtube.com/watch?v=hFCi-SCOZJM') #* maybe you can redirect another external website
 #?-------------------END RUTES FUNTIONS ---------------------------------------------------------------
 #? -----------RUNNING APP-------------------------------------------------------------------------------
