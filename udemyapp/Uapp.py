@@ -5,6 +5,7 @@ from flask import (
     redirect, #? redirecciona a otros templates
     url_for
     )
+import json #* El paquete json en Flask serializa y deserializa datos JSON, facilitando el intercambio de datos con aplicaciones web y APIs.
 
 #* Name app must be the same as princiapl file 
 Uapp = Flask(__name__)
@@ -27,6 +28,10 @@ def formulario ():
 def dinamic():
     #validation if there is a method POST in the rute
     if request.method == 'POST':
+        # generating un diccionario que recibe los parametros url del formulario
+        urls = {request.form['url']: request.form['code']}
+        with open('urls.json', 'w') as url_file: # si no existe sarchivos url lo creara
+            json.dump(urls, url_file) # pasa el contenido del diccionario al archivo url_file
         return render_template('dinamic.html', nombre=request.form['code']) #* send args to form html template with the name
     else:
         return redirect(url_for('home')) #* This metohd for using Get and don't pass params when it is redirecting another template
