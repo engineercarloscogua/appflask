@@ -3,12 +3,15 @@ from flask import (
     render_template,
     request, #? extrae argumemntos de los formularios
     redirect, #? redirecciona a otros templates
-    url_for
+    url_for,
+    flash #permite mostrar mensaje semergentes
     )
 import json #* El paquete json en Flask serializa y deserializa datos JSON, facilitando el intercambio de datos con aplicaciones web y APIs.
-import os.path #importando metodo de python
+import os.path #importando metodo de python pata verificar la existencia de archivos Js
 #* Name app must be the same as princiapl file 
 Uapp = Flask(__name__)
+#* estableciendo clave secreta
+Uapp.secret_key = 'hghgfhfhfhdffgc'
 
 #?--------------------RUTES, ALL RUTES MUST HAVE YOUR OWN FUNTION-----------------------------------
 #*Rute's name must be equal to funtion name
@@ -39,8 +42,10 @@ def dinamic():
         #Comprueba si el código enviado (accedido mediante request.form['code']) existe como clave en el diccionario urls.
         #Si existe, redirige al usuario a la ruta de inicio (url_for('home')). Esto implica que el código podría ser un código de acceso válido        
         if request.form['code'] in urls.keys():
-            return redirect(url_for('home')) 
-        
+            #flash funciona en base a request 
+            flash('Esa clave o nombre ya esta ocupada')
+            return redirect(url_for('formulario'))  #redirija al form atravez de la funcion formulario en este archivo
+            
         # si no existe el archivo JS almacena el code y la url en el diccionario  
         urls = {request.form['code']: request.form['url']}
         #Crea un nuevo par clave-valor en el diccionario

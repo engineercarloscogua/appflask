@@ -6,3 +6,10 @@
     <input type = "text" name = "code" value = " ">
     <input type = "submit" value = "Enviar">
 </form>
+
+<!--Muestra los mensajes de flash -->
+{% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+        {{message}}
+    {% endfor %}
+{% endwith %}
