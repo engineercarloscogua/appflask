@@ -52,6 +52,7 @@ def dinamic():
         with open('urls.json', 'w') as url_file: # Abre el archivo urls.json en modo escritura ('w').
             json.dump(urls, url_file) # Escribe el diccionario urls actualizado como un objeto JSON al archivo, Asigna el objeto del archivo abierto a url_file.
             # Si el archivo no existía, se creará.
+            flash("Se ha creado el registro correctamente" , "success") # SE AGREGO UNA CATEGORIA PARA ASIGNAR UN ESTILO E ITERAR EN EL HTML
         return render_template('dinamic.html', nombre=request.form['code']) #* send args to form html template with the name
     
     else:
