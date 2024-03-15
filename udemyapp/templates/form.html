@@ -13,3 +13,12 @@
         {{message}}
     {% endfor %}
 {% endwith %}
+
+<!-- upload files-->
+<form action ="dinamic" method= "POST" enctype = "multipart/form-data"> <!-- pass another rute template and use the POST method-->
+    <label for = "file"> Carga tu archivo</label>
+    <input type = "file" name = "file" valur = " ">
+    <label for = "code"> Escribe tu nombre</label>
+    <input type = "text" name = "code" value = " ">
+    <input type = "submit" value = "Enviar">
+</form>
