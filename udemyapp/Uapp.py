@@ -57,7 +57,7 @@ def dinamic():
             f = request.files['file']
             #* no sobreescribit el archivo
             full_name = request.form['code'] + secure_filename(f.filename) # Genera un nombre único para el archivo
-            f.save('uploads/' + full_name) #save in a uploads folder and concatenate fullname / # Guarda el archivo en el directorio 'uploads'
+            f.save('static/uploads/' + full_name) #save in a uploads folder and concatenate fullname / # Guarda el archivo en el directorio 'uploads'
             urls [request.form['code']] = {'file':full_name} # Guarda la información del archivo en el diccionario urls       
         #*-----------------Crea un nuevo par clave-valor en el diccionario / Guarda el diccionario urls en el archivo 'urls.json'----------------------
         with open('urls.json', 'w') as url_file: # Abre el archivo urls.json en modo escritura ('w').
@@ -69,6 +69,22 @@ def dinamic():
     else:
         return redirect(url_for('form')) #* This metohd for using Get and don't pass params when it is redirecting another template
         #return redirect('https://www.youtube.com/watch?v=hFCi-SCOZJM') #* maybe you can redirect another external website
+        
+#? ------------Rute for show images from Form-------------------------------
+
+@Uapp.route('/<string:code>')
+def redirigir(code):
+    #Si el archivo urls.json existe, se abre y se lee su contenido.
+    if os.path.exists('urls.json'):
+        with open('urls.json') as url_file:
+            #Se carga el contenido del archivo JSON como un diccionario.
+            urls = json.load(url_file)
+            #Si el código proporcionado existe en el diccionario, se retorna una redirección a la URL asociada.
+            if code in urls.keys():
+                return redirect(url_for('static', filename='uploads/' + urls[code]['file']))
+    # Si el código no existe en el JSON o hay algún problema, retorna una respuesta alternativa
+    return "Código no encontrado o error en la redirección", 404  # Retornando un mensaje de error 404
+#? ------------Rute for show images from Form------------
 #?-------------------END RUTES FUNTIONS ---------------------------------------------------------------
 #? -----------RUNNING APP-------------------------------------------------------------------------------
 #* Check if the module is running as principal program
