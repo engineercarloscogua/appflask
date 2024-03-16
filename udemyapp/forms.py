@@ -13,10 +13,18 @@ from wtforms.validators import (
     Email, # Validador para asegurarse de que se proporciona un correo electrónico válido
     Length ## Validador para asegurarse de que la longitud de un campo está dentro de un rango específico
     )
-
+#?-----------------------Login Form ---------------------------------------------
 #*  Definimos la clase LoginForm que hereda de FlaskForm para usar en html con jinja2
-class Loginform(FlaskForm):
+class Loginform(FlaskForm): 
     # Definimos los campos del formulario junto con sus validadores
     username = StringField('username', validators=[InputRequired(), Length(min= 4 ,max =16)])
     password= StringField('password', validators=[InputRequired(), Length(min= 8 ,max =16)])
     remember = BooleanField('Recuerda me')
+    
+#? ----------------------Register Form ----------------------------------------------
+class CreateUserForm(FlaskForm): 
+    # Definimos los campos del formulario junto con sus validadores
+    email = StringField('email', validators=[InputRequired(), Email(message="Este no es un correo electronico valido"), Length(max =60)])
+    username = StringField('username', validators=[InputRequired(), Length(min= 4 ,max =16)])
+    password= StringField('password', validators=[InputRequired(), Length(min= 8 ,max =16)])
+    

@@ -9,7 +9,7 @@ from flask import (
 import json #? El módulo json proporciona funciones para trabajar con datos en formato JSON.
 import os.path #? El módulo os proporciona funciones para interactuar con el sistema operativo.
 from werkzeug.utils import secure_filename  #? # secure_filename es una función proporcionada por Werkzeug, una biblioteca WSGI para Python, que ayuda a garantizar que los nombres de archivo sean seguros para su almacenamiento en el sistema de archivos.
-from forms import Loginform #? importando los campos desde el modelo de form
+from forms import Loginform, CreateUserForm #? importando los campos desde el modelo de form
 #* Name app must be the same as princiapl file 
 Uapp = Flask(__name__)
 #* estableciendo clave secreta
@@ -24,9 +24,10 @@ def home ():
     login = Loginform()
     #retona formi es una valirable que contiene los atributos del login al html
     return render_template('form2.html', formi= login) # this line renders the template, and passing a date witjh jinja2 in the template
-@Uapp.route("/login")
+@Uapp.route("/registro")
 def login ():
-    return "This is the login"
+    login = CreateUserForm() # usando l la clase del archivo forms.py
+    return  render_template('register.html', regis= login)
 
 #* ---------------------FORMULARIO ----------------------------------------------------------------------------------------------------------
 @Uapp.route("/form")
