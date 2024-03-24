@@ -29,9 +29,13 @@ def home ():
     return render_template('form2.html', formi= login) # this line renders the template, and passing a date witjh jinja2 in the template
     
    
-@Uapp.route("/registro")
+@Uapp.route("/registro", methods = ['GET', 'POST'])
 def login ():
+    
     registro = CreateUserForm() # usando l la clase del archivo forms.py
+    #llamando la estrctura de loguin desde el archivo form
+    if registro.validate_on_submit():
+        return '<h1>' + registro.username.data + '  ' + registro.email.data + ' ' + registro.password.data + '</h1>'    
     return  render_template('register.html', regis= registro)
 
 #* ---------------------FORMULARIO ----------------------------------------------------------------------------------------------------------

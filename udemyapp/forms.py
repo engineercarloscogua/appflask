@@ -24,7 +24,7 @@ class Loginform(FlaskForm):
 #? ----------------------Register Form ----------------------------------------------
 class CreateUserForm(FlaskForm): 
     # Definimos los campos del formulario junto con sus validadores
-    email = StringField('email', validators=[InputRequired(), Email(message="Este no es un correo electronico valido"), Length(max =60)])
-    username = StringField('username', validators=[InputRequired(), Length(min= 4 ,max =16)])
-    password= PasswordField('password', validators=[InputRequired(), Length(min= 8 ,max =16)])
+    email = StringField('Escribe el Correo Electronico', validators=[InputRequired(), Email(message="Este no es un correo electronico valido"), Length(max =60)])
+    username = StringField('Escribe el Nombre de Usuario', validators=[InputRequired(), Length(min= 4 ,max =16)]) # ahora puede cambiar el nombre de los label de l formulario desde aqui
+    password= PasswordField('Agrega una Contraseña', validators=[InputRequired(), Length(min= 8 ,max =16)])
     

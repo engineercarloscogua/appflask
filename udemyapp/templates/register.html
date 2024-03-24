@@ -2,8 +2,13 @@
 {%block contenido %}
 <h1>Formulario de registro </h1>
 <form action = "" method= "POST" novalidate>
+    {{regis.hidden_tag() }}
+    
+    {{regis.email.label}} <br>
     {{regis.email(size=30)}} <br> <!-- se supone que muestra la clave y la contraseña pero por algun motivo no lo hace-->
+    {{regis.username.label}} <br> <!-- etiquetas label que traen el nombre de los campos personalizados desde el controlador de formulario-->
     {{regis.username(size=30)}} <br>
+    {{regis.password.label}} <br>
     {{regis.password(size=30)}} <br>  
     <button type="submit">Loguearse </button>
 </form>
