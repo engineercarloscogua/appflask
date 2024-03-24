@@ -17,17 +17,22 @@ Uapp.secret_key = 'hghgfhfhfhdffgc'
 
 #?--------------------RUTES, ALL RUTES MUST HAVE YOUR OWN FUNTION-----------------------------------
 #*Rute's name must be equal to funtion name
-@Uapp.route("/home") 
+@Uapp.route("/home", methods = ['GET', 'POST'])  # se agrega el metodo para hacer un cheo del funcionamiento del formulario
 @Uapp.route("/") #the decorete associated a rute with the funtion
 def home ():
     #llamando la estrctura de loguin desde el archivo form
     login = Loginform()
+    
+    if login.validate_on_submit():
+        return '<h1>' + login.username.data + '  ' + login.password.data + '</h1>'
     #retona formi es una valirable que contiene los atributos del login al html
     return render_template('form2.html', formi= login) # this line renders the template, and passing a date witjh jinja2 in the template
+    
+   
 @Uapp.route("/registro")
 def login ():
-    login = CreateUserForm() # usando l la clase del archivo forms.py
-    return  render_template('register.html', regis= login)
+    registro = CreateUserForm() # usando l la clase del archivo forms.py
+    return  render_template('register.html', regis= registro)
 
 #* ---------------------FORMULARIO ----------------------------------------------------------------------------------------------------------
 @Uapp.route("/form")

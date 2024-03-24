@@ -18,7 +18,7 @@ from wtforms.validators import (
 class Loginform(FlaskForm): 
     # Definimos los campos del formulario junto con sus validadores
     username = StringField('username', validators=[InputRequired(), Length(min= 4 ,max =16)])
-    password= StringField('password', validators=[InputRequired(), Length(min= 8 ,max =16)])
+    password= PasswordField('password', validators=[InputRequired(), Length(min= 8 ,max =16)])
     remember = BooleanField('Recuerda me')
     
 #? ----------------------Register Form ----------------------------------------------
@@ -26,5 +26,5 @@ class CreateUserForm(FlaskForm):
     # Definimos los campos del formulario junto con sus validadores
     email = StringField('email', validators=[InputRequired(), Email(message="Este no es un correo electronico valido"), Length(max =60)])
     username = StringField('username', validators=[InputRequired(), Length(min= 4 ,max =16)])
-    password= StringField('password', validators=[InputRequired(), Length(min= 8 ,max =16)])
+    password= PasswordField('password', validators=[InputRequired(), Length(min= 8 ,max =16)])
     

@@ -2,7 +2,7 @@
 {%block contenido %}
 <h1>Formulario de registro </h1>
 <form action = "" method= "POST" novalidate>
-    {{regis.email(size=30)}} <br>
+    {{regis.email(size=30)}} <br> <!-- se supone que muestra la clave y la contraseña pero por algun motivo no lo hace-->
     {{regis.username(size=30)}} <br>
     {{regis.password(size=30)}} <br>  
     <button type="submit">Loguearse </button>

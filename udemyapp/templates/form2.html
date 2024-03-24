@@ -1,12 +1,11 @@
 <!--Estructura de formulario creado por medio de una clase-->
 {%block contenido %}
-
-<form action = "" method= "POST" novalidate>
+<h1>Home iniciar sesion </h1>
+<form action = "" method= "POST" novalidate>  
+    {{ formi.hidden_tag() }} 
     {{formi.username(size=30)}} <br>
     {{formi.password(size=30)}} <br>
     {{formi.remember(size=30)}} <br>
     <button type="submit">Loguearse </button>
-
 </form>
-
 {% endblock %}
