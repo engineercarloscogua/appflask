@@ -10,15 +10,27 @@ import json #? El módulo json proporciona funciones para trabajar con datos en 
 import os.path #? El módulo os proporciona funciones para interactuar con el sistema operativo.
 from werkzeug.utils import secure_filename  #? # secure_filename es una función proporcionada por Werkzeug, una biblioteca WSGI para Python, que ayuda a garantizar que los nombres de archivo sean seguros para su almacenamiento en el sistema de archivos.
 from forms import Loginform, CreateUserForm #? importando los campos desde el modelo de form
+from flask_sqlalchemy import SQLAlchemy #? import propietis that DB
+from flask import Flask
 #* Name app must be the same as princiapl file 
-Uapp = Flask(__name__)
+app = Flask(__name__)
 #* estableciendo clave secreta
-Uapp.secret_key = 'hghgfhfhfhdffgc'
+app.secret_key = 'hghgfhfhfhdffgc'
+
+#? ----------------------DB CONFIG --------------------------------------------------
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///base.db"
+#* configure the SQLite database, relative to the app instance folder indica donde se ncuentra el archivo
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#*creating the objet
+db = SQLAlchemy(app)
+
+#*inicializate db 
+#db.init_app(app)
 
 #?--------------------RUTES, ALL RUTES MUST HAVE YOUR OWN FUNTION-----------------------------------
 #*Rute's name must be equal to funtion name
-@Uapp.route("/home", methods = ['GET', 'POST'])  # se agrega el metodo para hacer un cheo del funcionamiento del formulario
-@Uapp.route("/") #the decorete associated a rute with the funtion
+@app.route("/home", methods = ['GET', 'POST'])  # se agrega el metodo para hacer un cheo del funcionamiento del formulario
+@app.route("/") #the decorete associated a rute with the funtion
 def home ():
     #llamando la estrctura de loguin desde el archivo form
     login = Loginform()
@@ -29,7 +41,7 @@ def home ():
     return render_template('form2.html', formi= login) # this line renders the template, and passing a date witjh jinja2 in the template
     
    
-@Uapp.route("/registro", methods = ['GET', 'POST'])
+@app.route("/registro", methods = ['GET', 'POST'])
 def login ():
     
     registro = CreateUserForm() # usando l la clase del archivo forms.py
@@ -39,11 +51,11 @@ def login ():
     return  render_template('register.html', regis= registro)
 
 #* ---------------------FORMULARIO ----------------------------------------------------------------------------------------------------------
-@Uapp.route("/form")
+@app.route("/form")
 def formulario ():
     return render_template('form.html')
 #*------------------------------Creating a dinamic rute / Ruta dinámica que maneja peticiones GET y POST----------------------------------------
-@Uapp.route("/dinamic", methods = ['GET', 'POST'])  # for work with post method always must out the methods in the rute
+@app.route("/dinamic", methods = ['GET', 'POST'])  # for work with post method always must out the methods in the rute
 def dinamic():
     #validation if there is a method POST in the rute /Si la petición es POST, se procesa el formulario
     if request.method == 'POST':
@@ -85,7 +97,7 @@ def dinamic():
         
 #? ------------Rute for show images from Form-------------------------------
 
-@Uapp.route('/<string:code>')
+@app.route('/<string:code>')
 def redirigir(code):
     #Si el archivo urls.json existe, se abre y se lee su contenido.
     if os.path.exists('urls.json'):
@@ -102,8 +114,7 @@ def redirigir(code):
 #? -----------RUNNING APP-------------------------------------------------------------------------------
 #* Check if the module is running as principal program
 if __name__ == "__main__": #When executed an python file, the value of  variable __name__  is as  "__main__".
-   with Uapp.app_context():  # This line create a context of aplication for Uaap. This is necessary for that Run funtión working.
-    #* If module is executing as principal program, it execute the app Uapp.
-    Uapp.run(debug = True) #the funtions execute for stard the local service, this metodh don't have to use in deploy only to use in development
-#* En resumen, el modo debug es una herramienta útil para principiantes que están aprendiendo a programar. Te ayuda a encontrar errores, entender tu código y probar cosas nuevas. Sin embargo, no es necesario para el producto final y puede ser un poco lento e informativo.
-#? ------------END RUUNING------------------------------------------------------------------------------
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)
+# ? ------------END RUUNING------------------------------------------------------------------------------
