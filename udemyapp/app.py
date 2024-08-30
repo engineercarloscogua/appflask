@@ -10,8 +10,10 @@ import json #? El módulo json proporciona funciones para trabajar con datos en 
 import os.path #? El módulo os proporciona funciones para interactuar con el sistema operativo.
 from werkzeug.utils import secure_filename  #? # secure_filename es una función proporcionada por Werkzeug, una biblioteca WSGI para Python, que ayuda a garantizar que los nombres de archivo sean seguros para su almacenamiento en el sistema de archivos.
 from forms import Loginform, CreateUserForm #? importando los campos desde el modelo de form
-from flask_sqlalchemy import SQLAlchemy #? import propietis that DB
+
 from flask import Flask
+
+
 #* Name app must be the same as princiapl file 
 app = Flask(__name__)
 #* estableciendo clave secreta
@@ -22,10 +24,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///base.db"
 #* configure the SQLite database, relative to the app instance folder indica donde se ncuentra el archivo
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #*creating the objet
-db = SQLAlchemy(app)
 
-#*inicializate db 
-#db.init_app(app)
 
 #?--------------------RUTES, ALL RUTES MUST HAVE YOUR OWN FUNTION-----------------------------------
 #*Rute's name must be equal to funtion name
@@ -47,7 +46,13 @@ def login ():
     registro = CreateUserForm() # usando l la clase del archivo forms.py
     #llamando la estrctura de loguin desde el archivo form
     if registro.validate_on_submit():
-        return '<h1>' + registro.username.data + '  ' + registro.email.data + ' ' + registro.password.data + '</h1>'    
+        #return '<h1>' + registro.username.data + '  ' + registro.email.data + ' ' + registro.password.data + '</h1>'
+        # registro.nombre_decampo en el template registro. data 
+        new_user = User(username= registro.username.data, email= registro.email.data, password= registro.passowrd.data)  
+        db.session.add(new_user) 
+        db.session.commit()
+        
+        return '<h1> Nuevo Usuario Registrado</h1>'
     return  render_template('register.html', regis= registro)
 
 #* ---------------------FORMULARIO ----------------------------------------------------------------------------------------------------------
@@ -108,13 +113,6 @@ def redirigir(code):
             if code in urls.keys():
                 return redirect(url_for('static', filename='uploads/' + urls[code]['file']))
     # Si el código no existe en el JSON o hay algún problema, retorna una respuesta alternativa
-    return "Código no encontrado o error en la redirección", 404  # Retornando un mensaje de error 404
-#? ------------Rute for show images from Form------------
-#?-------------------END RUTES FUNTIONS ---------------------------------------------------------------
-#? -----------RUNNING APP-------------------------------------------------------------------------------
-#* Check if the module is running as principal program
-if __name__ == "__main__": #When executed an python file, the value of  variable __name__  is as  "__main__".
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
-# ? ------------END RUUNING------------------------------------------------------------------------------
+
+# importando la clase User Usuario del Modelo 
+from database import User,db
